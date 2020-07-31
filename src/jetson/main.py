@@ -13,6 +13,7 @@ from src.jetson.video_capturer import VideoCapturer
 from src.jetson.classifier import Classifier
 from src.jetson.encryptor import Encryptor
 from src.db import data_insertion
+from scripts import name_giver
 
 fileCount = Value('i', 0)
 # Shared memory queue to allow child encryption process to return to parent
@@ -32,7 +33,8 @@ def writeImg(img, output_dir):
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
     global fileCount
-    face_file_name = f'{fileCount.value}.jpg'
+    #face_file_name = f'{fileCount.value}.jpg'
+    face_file_name = name_giver.generate_unique_name() + ".jpg"
     face_file_path = os.path.join(output_dir, face_file_name)
 
     cv2.imwrite(face_file_path, img)
