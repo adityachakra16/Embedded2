@@ -16,8 +16,7 @@ from src.db import data_insertion
 from scripts import name_giver
 
 fileCount = Value('i', 0)
-# Shared memory queue to allow child encryption process to return to parent
-encryptRet = Queue()
+encryptRet = Queue() # Shared memory queue to allow child encryption process to return to parent
 DETECTOR_TYPES = ['blazeface', 'retinaface', 'ssd']
 
 
@@ -33,7 +32,6 @@ def writeImg(img, output_dir):
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
     global fileCount
-    #face_file_name = f'{fileCount.value}.jpg'
     face_file_name = name_giver.generate_unique_name() + ".jpg"
     face_file_path = os.path.join(output_dir, face_file_name)
 
@@ -105,8 +103,7 @@ if __name__ == "__main__":
     classifier = args["CLASSIFIER"]
     send_to_database = args["SEND_TO_DATABASE"]
     output_dir = args["OUTPUT_DIR"]
-    # This should be true if running on jetson nano with picam
-    gstreamer = args["GSTREAMER"]
+    gstreamer = args["GSTREAMER"] # This should be true if running on jetson nano with picam
     draw_frame = args["DRAW_FRAME"]
 
     if detector_type not in DETECTOR_TYPES:
@@ -128,14 +125,13 @@ if __name__ == "__main__":
     encryptor = Encryptor()
 
     run_face_detection: bool = True
-    while run_face_detection:  # main video detection loop that will iterate until ESC key is entered
+    while run_face_detection: # main video detection loop that will iterate until ESC key is entered
         start_time = time.time()
         image_date = datetime.date.today()
         image_time = datetime.datetime.now().time()
         frame = capturer.get_frame()
         boxes = detector.detect(frame)
-        # copy memory for encrypting image separate from unencrypted image
-        encryptedImg = frame.copy()
+        encryptedImg = frame.copy() # copy memory for encrypting image separate from unencrypted image
 
         if len(boxes) != 0:
             p1 = Process(target=encryptWorker, args=(
