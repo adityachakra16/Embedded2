@@ -13,7 +13,7 @@ from src.jetson.video_capturer import VideoCapturer
 from src.jetson.classifier import Classifier
 from src.jetson.encryptor import Encryptor
 from src.db import data_insertion
-from scripts import name_giver
+from src.jetson import name_giver
 
 fileCount = Value('i', 0)
 encryptRet = Queue() # Shared memory queue to allow child encryption process to return to parent
