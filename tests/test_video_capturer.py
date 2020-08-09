@@ -42,7 +42,9 @@ class TestCapturer():
         assert self.capturer.frame is not None
         oldFrame = self.capturer.frame.copy()
         time.sleep(.02) # sleep long enough to ensure thread t1 updates
-        assert oldFrame is not self.capturer.frame
+        newFrame = self.capturer.frame.any()
+        compare = oldFrame == newFrame
+        assert not compare.all()
 
     def test_get_frame(self, mock_capture):
         mock_capture.return_value.read.return_value = mock_read()
