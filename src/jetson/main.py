@@ -130,6 +130,11 @@ if __name__ == "__main__":
         image_date = datetime.date.today()
         image_time = datetime.datetime.now().time()
         frame = capturer.get_frame()
+        if frame is None:
+            print("Video camera disconnected")
+            capturer.reboot()
+            frame = capturer.get_frame()
+            
         boxes = detector.detect(frame)
         encryptedImg = frame.copy() # copy memory for encrypting image separate from unencrypted image
 
