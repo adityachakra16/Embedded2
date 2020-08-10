@@ -63,6 +63,7 @@ class VideoCapturer(object):
             time.sleep(.01)
 
     def reboot(self):
+        """Attempts to reestablish connection to camera"""
         ret = False 
         while not ret:
             if self.gstreamer:
