@@ -1,7 +1,7 @@
 import paramiko
 import os
 import sys
-from .config import get_config
+from src.db.config import get_config
 from contextlib import contextmanager
 
 
@@ -24,25 +24,26 @@ def ftp_transfer():
     transport = None
     sftp = None
     config = get_config()
-    
+
     try:
         transport = paramiko.Transport((config["FTPHOST"], 22))
-        transport.connect(username=config["FTPUSER"], password=config["FTPPASS"])
+        transport.connect(
+            username=config["FTPUSER"], password=config["FTPPASS"])
         sftp = paramiko.SFTPClient.from_transport(transport)
         print('Sucessfully connected to host machine')
 
         def transfer(input_dir, output_dir, image_name):
             # ensure correct format for directory paths
+            if not input_dir.endswith('/'):
+                input_dir = input_dir + '/'
             if not output_dir.endswith('/'):
                 output_dir = output_dir + '/'
 
             # transfer files from input directory to output directory
             try:
-                # only transfer files that end with certain type(.jpg for testing purposes)
-                if input_dir.endswith('.jpg'):
-                    sftp.put(input_dir, output_dir + image_name)
-                    # remove the image from client side after successful transfer (commented for testing purpose)
-                    # os.remove(input_dir)
+                sftp.put(input_dir + image_name, output_dir + image_name)
+                # remove the image from client side after successful transfer (commented for testing purpose)
+                # os.remove(input_dir + image_name)
 
                 return True
             except Exception as e:

@@ -1,0 +1,10 @@
+{
+    "DETECTOR" : "src/jetson/retinaface.pth",
+    "DETECTOR_TYPE" : "retinaface",
+    "CUDA" : false,
+    "CLASSIFIER" : "src/jetson/ensemble2_halffrozen_aug3.pth",
+    "SEND_TO_DATABASE" : true,
+    "OUTPUT_DIR" : "encrypt_imgs",
+    "GSTREAMER" : false,
+    "DRAW_FRAME" : false
+}
