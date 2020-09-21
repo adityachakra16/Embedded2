@@ -37,7 +37,7 @@ Running on GPU:
 `python3 src/jetson/main.py --detector src/jetson/model_weights/mobilenet0.25_Final.pth --classifier src/jetson/model_weights/ensemble2_halffrozen.pth --cuda True`
 
 If you want to save encrypted images:
-`python3 src/jetson/main.py --detector src/jetson/model_weights/mobilenet0.25_Final.pth --classifier src/jetson/model_weights/ensemble2_halffrozen.pth --write_imgs True
+`python3 src/jetson/main.py --detector src/jetson/model_weights/mobilenet0.25_Final.pth --classifier src/jetson/model_weights/ensemble2_halffrozen.pth --write_imgs True`
 
 # Future Work
 This system can be extended to detect usage of other Personal Protective Equipments such as helmet and masks. 
